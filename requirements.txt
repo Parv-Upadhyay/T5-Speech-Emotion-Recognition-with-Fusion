@@ -1,0 +1,14 @@
+flask
+flask-cors
+torch
+torchvision
+numpy
+librosa
+opencv-python-headless
+soundfile
+ffmpeg-python
+Pillow
+scikit-learn
+flask-sqlalchemy
+flask-login
+werkzeug
