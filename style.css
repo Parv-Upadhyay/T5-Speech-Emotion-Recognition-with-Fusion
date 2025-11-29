@@ -1,0 +1,166 @@
+/* --- 1. Variables & Reset --- */
+:root {
+    --bg-dark: #0f172a;
+    --bg-card: rgba(30, 41, 59, 0.7);
+    --primary: #06b6d4; /* Cyan */
+    --primary-hover: #0891b2;
+    --secondary: #f59e0b; /* Gold */
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+    --font-main: 'Poppins', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    background-image: 
+        radial-gradient(circle at 15% 50%, rgba(6, 182, 212, 0.15), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(245, 158, 11, 0.1), transparent 25%);
+    min-height: 100vh;
+}
+
+/* --- 2. Utilities --- */
+.container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+.page-view { display: none; opacity: 0; transition: opacity 0.5s ease; }
+.page-view.active { display: block; opacity: 1; }
+.glass {
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    border: var(--glass-border);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* --- 3. Navbar --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    position: sticky;
+    top: 20px;
+    z-index: 100;
+    margin: 0 20px;
+}
+.logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); letter-spacing: 1px; }
+.user-badge { margin-right: 15px; color: var(--secondary); font-weight: 500; }
+
+/* --- 4. Hero Section --- */
+.hero {
+    text-align: center;
+    padding: 80px 20px;
+    position: relative;
+}
+.badge {
+    background: rgba(6, 182, 212, 0.2);
+    color: var(--primary);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.hero h1 {
+    font-size: 3.5rem;
+    line-height: 1.2;
+    margin: 20px 0;
+}
+.highlight { 
+    background: linear-gradient(to right, var(--primary), #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.hero p { color: var(--text-muted); font-size: 1.2rem; max-width: 600px; margin: 0 auto 40px; }
+
+/* --- 5. Features --- */
+.features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 50px; }
+.feature-card { padding: 30px; text-align: center; transition: transform 0.3s; }
+.feature-card:hover { transform: translateY(-10px); border-color: var(--primary); }
+.feature-card i { font-size: 2.5rem; color: var(--primary); margin-bottom: 20px; }
+
+/* --- 6. Buttons --- */
+.btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: var(--font-main);
+}
+.btn-primary { background: var(--primary); color: #fff; box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4); }
+.btn-primary:hover { background: var(--primary-hover); transform: scale(1.05); }
+.btn-outline { background: transparent; border: 1px solid var(--primary); color: var(--primary); }
+.btn-outline:hover { background: var(--primary); color: white; }
+.btn-full { width: 100%; margin-top: 10px; }
+.btn-danger { background: #ef4444; color: white; padding: 8px 15px; font-size: 0.9rem; }
+
+/* --- 7. Modal & Forms --- */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none; justify-content: center; align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+.modal-overlay.visible { display: flex; animation: fadeIn 0.3s; }
+.modal-content { width: 400px; padding: 40px; position: relative; }
+.close-btn { position: absolute; top: 15px; right: 20px; background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; }
+
+.auth-header { text-align: center; margin-bottom: 30px; }
+.auth-tabs { display: flex; justify-content: center; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.tab-btn {
+    background: none; border: none; color: var(--text-muted);
+    padding: 10px 20px; cursor: pointer; font-size: 1rem;
+    border-bottom: 2px solid transparent;
+}
+.tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+.input-group {
+    position: relative; margin-bottom: 15px;
+}
+.input-group i {
+    position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted);
+}
+.input-group input {
+    width: 100%; padding: 12px 12px 12px 45px;
+    background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px; color: white; outline: none;
+}
+.input-group input:focus { border-color: var(--primary); }
+
+/* --- 8. Upload Area --- */
+.file-drop-area {
+    position: relative; padding: 40px; border: 2px dashed rgba(255,255,255,0.2);
+    border-radius: 12px; text-align: center; transition: 0.3s; background: rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+}
+.file-drop-area:hover { border-color: var(--primary); background: rgba(6, 182, 212, 0.05); }
+.fake-btn {
+    background: rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 4px;
+    margin-right: 10px; font-size: 0.9rem;
+}
+.file-msg { color: var(--text-muted); font-size: 0.9rem; }
+.file-drop-area input {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    opacity: 0; cursor: pointer;
+}
+
+/* --- 9. Results Table --- */
+.results-box { margin-top: 20px; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; margin-top: 10px; color: var(--text-muted); }
+th { text-align: left; padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); color: var(--primary); }
+td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.placeholder-state { text-align: center; padding: 40px; color: var(--text-muted); opacity: 0.6; }
+.placeholder-state i { font-size: 3rem; margin-bottom: 15px; }
+
+/* Status Messages */
+.status-msg { margin-top: 15px; font-size: 0.9rem; text-align: center; }
+.success { color: #4ade80; }
+.error { color: #f87171; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
